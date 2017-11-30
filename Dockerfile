@@ -26,8 +26,19 @@ ADD docker-entrypoint.sh /entrypoint.sh
 ADD znc.conf.default /znc.conf.default
 RUN chmod 644 /znc.conf.default
 
+RUN apt-get update \
+    && apt-get install -y tor proxychains \
+		&& apt-get clean \
+		&& rm -rf /src* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+		&& systemctl disable tor.service
+
+RUN sed -i -e 's/#SOCKSPort 9050/SOCKSPort 9050/g' /etc/tor/torrc
+
+
+
+
 VOLUME /znc-data
 
 EXPOSE 6667
 ENTRYPOINT ["/entrypoint.sh"]
-CMD [""]
+CMD ["tor"]

@@ -36,4 +36,4 @@ chown -R znc:znc "$DATADIR"
 
 # Start ZNC.
 echo "Starting ZNC..."
-exec sudo -u znc znc --foreground --datadir="$DATADIR" $@
+exec sudo -u znc proxychains znc --foreground --datadir="$DATADIR" $@
