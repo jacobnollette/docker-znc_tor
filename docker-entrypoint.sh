@@ -34,6 +34,8 @@ fi
 echo "Setting necessary permissions..."
 chown -R znc:znc "$DATADIR"
 
+sudo service tor start
+
 # Start ZNC.
 echo "Starting ZNC..."
 exec sudo -u znc proxychains znc --foreground --datadir="$DATADIR" $@
